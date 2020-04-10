@@ -1,7 +1,11 @@
 .App {
   text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+  color: black;
 }
 
 img {
-  height: 100vh;
+  height: 30vh;
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import Football from './football.jpg';
-import Basketball from './basketball.jpg';
-import Icehockey from './icehockey.jpg';
-import Tennis from './tennis.jpg';
-import Rugby from './rugby.jpg';
-import Vollyball from './vollyball.jpg';
+import Football from './images/football.jpg';
+import Basketball from './images/basketball.jpg';
+import Icehockey from './images/icehockey.jpg';
+import Tennis from './images/tennis.jpg';
+import Rugby from './images/rugby.jpg';
+import Vollyball from './images/vollyball.jpg';
 import './App.css';
 
 function App() {

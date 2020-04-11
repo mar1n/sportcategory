@@ -1,3 +1,7 @@
+* {
+  margin: 0;
+}
+
 .App {
   text-align: center;
   display: grid;
@@ -7,5 +11,14 @@
 }
 
 img {
-  height: 30vh;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .App {
+    grid-template-columns: 1fr;
+  }
+  img {
+    width: 80%;
+  }
 }

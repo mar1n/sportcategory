@@ -6,9 +6,9 @@ import Details from './Details';
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className='App'>
         <Route exact path='/' component={SportCategory} />
-        <Route exact path='/details' component={Details} />
+        <Route exact path='/:details' component={Details} />
       </div>
     </Router>
   );

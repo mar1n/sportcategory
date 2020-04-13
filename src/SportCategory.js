@@ -10,12 +10,12 @@ import Vollyball from './images/vollyball.jpg';
 function SportCategory() {
     return(
       <>
-        <Sport title='Football' logo={Football} />
-        <Sport title='Basketball' logo={Basketball} />
-        <Sport title='Icehockey' logo={Icehockey} />
-        <Sport title='Tennis' logo={Tennis} />
-        <Sport title='Rugby' logo={Rugby} />
-        <Sport title='Vollyball' logo={Vollyball} />
+        <Sport id='football' title='Football' logo={Football} />
+        <Sport id='basketball' title='Basketball' logo={Basketball} />
+        <Sport id='icehockey' title='Icehockey' logo={Icehockey} />
+        <Sport id='tennis' title='Tennis' logo={Tennis} />
+        <Sport id='rugby' title='Rugby' logo={Rugby} />
+        <Sport id='vollyball' title='Vollyball' logo={Vollyball} />
       </>
     )
 }

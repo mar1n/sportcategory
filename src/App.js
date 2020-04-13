@@ -11,28 +11,40 @@ function App() {
   return (
     <div className="App">
       <div className="sport">
-        <h1>Football</h1>
         <img src={Football} alt="Football" />
+        <div className="overlay">
+          <h1>Football</h1>
+        </div>
       </div>
       <div className="sport">
-        <h1>Basketball</h1>
         <img src={Basketball} alt="Basketball" />
+        <div className="overlay">
+        <h1>Basketball</h1>
+        </div>
       </div>
       <div className="sport">
-        <h1>Ice hockey</h1>
         <img src={Icehockey} alt="Icehockey" />
+        <div className="overlay">
+          <h1>Ice hockey</h1>
+        </div>
       </div>
       <div className="sport">
-        <h1>Tennis</h1>
         <img src={Tennis} alt="Tennis" />
+        <div className="overlay">
+          <h1>Tennis</h1>
+        </div>
       </div>
       <div className="sport">
-        <h1>Rugby</h1>
         <img src={Rugby} alt="Rugby" />
+        <div className="overlay">
+          <h1>Rugby</h1>
+        </div>
       </div>
       <div className="sport">
-        <h1>Vollyball</h1>
         <img src={Vollyball} alt="Vollyball" />
+        <div className="overlay">
+          <h1>Vollyball</h1>
+        </div>
       </div>
     </div>
   );

@@ -17,19 +17,21 @@ img {
   padding: 30px;
   border: 1px solid green;
   position: relative;
+  overflow: hidden;
 }
 .overlay {
-  display: none;
+  transition: bottom ease 1s;
   position: absolute;
-  bottom: 0;
+  bottom: -100px;
   left: 0;
   width: 100%;
-  opacity: 0.9;
+  opacity: 0.6;
   background-color: greenyellow;
 }
 
 .sport:hover .overlay {
-  display: block;
+  opacity: 0.6;
+  bottom: 0;
 }
 
 @media (max-width: 480px) {

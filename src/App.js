@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.css';
-import Sport  from './Sport';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SportCategory from './SportCategory';
+import Details from './Details';
 function App() {
   return (
-    <div className="App">
-      <SportCategory />
-    </div>
+    <Router>
+      <div className="App">
+        <Route exact path='/' component={SportCategory} />
+        <Route exact path='/details' component={Details} />
+      </div>
+    </Router>
   );
 }
 

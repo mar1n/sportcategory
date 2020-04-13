@@ -8,15 +8,14 @@ import Rugby from './images/rugby.jpg';
 import Vollyball from './images/vollyball.jpg';
 
 function SportCategory() {
-    return(
-      <>
-        <Sport id='football' title='Football' logo={Football} />
-        <Sport id='basketball' title='Basketball' logo={Basketball} />
-        <Sport id='icehockey' title='Icehockey' logo={Icehockey} />
-        <Sport id='tennis' title='Tennis' logo={Tennis} />
-        <Sport id='rugby' title='Rugby' logo={Rugby} />
-        <Sport id='vollyball' title='Vollyball' logo={Vollyball} />
-      </>
-    )
+  return (
+    <>
+      {
+        getSport().map((sport) => (
+          <Sport key={sport.id} id={sport.id} title={sport.title} logo={sport.logo} />
+        ))
+      }
+    </>
+  )
 }
 export default SportCategory;

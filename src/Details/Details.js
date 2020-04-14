@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import SportGet from './SportGet';
-
+import SportGet from '../SportGet';
+import './Details.css';
 export default class Details extends React.Component {
     constructor() {
         super();
@@ -23,8 +23,17 @@ export default class Details extends React.Component {
         } else {
             return (
                 <>
-                    <h1>{this.state.sport.title}</h1>
-                    <Link to='/'>Back to Home Page</Link>
+                    <div className='Details'>
+                        <h1>{this.state.sport.title}</h1>
+                        <div className='content'>
+                            <div>{this.state.sport.details}</div>
+                            <img
+                                src={this.state.sport.logo}
+                                alt={this.state.sport.title}
+                            />
+                        </div>
+                        <Link to='/'>Back to Home Page</Link>
+                    </div>
                 </>
             );
         }

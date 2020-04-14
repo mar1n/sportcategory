@@ -4,11 +4,13 @@ import SportGet from './SportGet'
 function SportCategory() {
   return (
     <>
-      {
-        SportGet().map((sport) => (
-          <Sport key={sport.id} id={sport.id} title={sport.title} logo={sport.logo} />
-        ))
-      }
+      <div className='container'>
+        {
+          SportGet().map((sport) => (
+            <Sport key={sport.id} id={sport.id} title={sport.title} logo={sport.logo} />
+          ))
+        }
+      </div>
     </>
   )
 }

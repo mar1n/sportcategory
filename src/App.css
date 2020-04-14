@@ -4,13 +4,15 @@
 
 .App {
   text-align: center;
+}
+
+.container {
   padding: 5px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 30px;
   color: black;
 }
-
 img {
   width: 100%;
 }
@@ -36,7 +38,7 @@ img {
 }
 
 @media (max-width: 480px) {
-  .App {
+  .container {
     grid-template-columns: 1fr;
   }
   img {

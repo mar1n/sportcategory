@@ -8,7 +8,7 @@ function App() {
     <Router>
       <div className='App'>
         <Route exact path='/' component={SportCategory} />
-        <Route exact path='/:details' component={Details} />
+        <Route exact path='/:sportId' component={Details} />
       </div>
     </Router>
   );

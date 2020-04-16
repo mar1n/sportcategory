@@ -1,9 +1,9 @@
-import Football from './images/football.jpg';
-import Basketball from './images/basketball.jpg';
-import Icehockey from './images/icehockey.jpg';
-import Tennis from './images/tennis.jpg';
-import Rugby from './images/rugby.jpg';
-import Vollyball from './images/vollyball.jpg';
+import Football from '../../images/football.jpg';
+import Basketball from '../../images/basketball.jpg';
+import Icehockey from '../../images/icehockey.jpg';
+import Tennis from '../../images/tennis.jpg';
+import Rugby from '../../images/rugby.jpg';
+import Vollyball from '../../images/vollyball.jpg';
 
 export default function SportGet() {
     return [

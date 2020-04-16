@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import SportCategory from './SportCategory';
-import Details from './Details/Details';
-import NotFound from './NotFound';
+import SportCategory from '../SportCategory/SportCategory';
+import Details from '../Details/Details';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import SportGet from '../SportGet';
+import SportGet from '../SportCategory/SportGet';
 import './Details.css';
 export default class Details extends React.Component {
     constructor() {

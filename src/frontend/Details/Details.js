@@ -15,14 +15,13 @@ export default class Details extends React.Component {
         let sportId = this.props.match.params.sportId;
         fetch('/rest/sport')
           .then(response => response.json())
-          .then(characters =>  characters.find(sport => sport.id === sportId)).then(sport => this.setState({sport}))
+          .then(characters =>  characters.find(sport => sport.id === sportId))
+          .then(sport => this.setState({sport}))
     }
     render() {
-        // var images = require.context('../../images', true);
-        // let img_src = images(`${this.state.sport.logo}.jpg`);
         if (this.state.sport === undefined) {
             return <Redirect to='/NotFound' />
-        } else {
+        } else if (this.state.sport.id) {
             return (
                 <>
                     <div className='Details'>
@@ -30,15 +29,15 @@ export default class Details extends React.Component {
                         <div className='content'>
                             <div>{this.state.sport.details}</div>
                             <img
-                                src={require(`./${this.state.sport.logo}.jpg`)}
+                                src={require(`../../images/${this.state.sport.id}.jpg`)}
                                 alt={this.state.sport.title}
                             />
-                        {console.log(this.state.sport.logo)}
                         </div>
                         <Link to='/'>Back to Home Page</Link>
                     </div>
                 </>
             );
         }
+        return <div></div>
     }
 }

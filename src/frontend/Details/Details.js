@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Loading from '../Loading/Loading'
-
 import './Details.css';
+
 export default class Details extends React.Component {
     constructor() {
         super();
@@ -11,12 +11,16 @@ export default class Details extends React.Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         let sportId = this.props.match.params.sportId;
-        fetch('/rest/sport')
-          .then(response => response.json())
-          .then(characters =>  characters.find(sport => sport.id === sportId))
-          .then(sport => this.setState({sport}))
+        try {
+            let fetchData = await fetch('/rest/sport')
+            let data = await fetchData.json();
+            let sport = data.find(sport => sport.id === sportId);
+            this.setState({ sport });
+        } catch (error) {
+            console.log(error)
+        }
     }
     render() {
         if (this.state.sport === undefined) {
@@ -38,6 +42,6 @@ export default class Details extends React.Component {
                 </>
             );
         }
-        return <Loading/>
+        return <Loading />
     }
 }

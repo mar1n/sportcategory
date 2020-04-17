@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import SportGet from '../SportCategory/SportGet';
+import Loading from '../Loading/Loading'
 
 import './Details.css';
 export default class Details extends React.Component {
@@ -38,6 +38,6 @@ export default class Details extends React.Component {
                 </>
             );
         }
-        return <div></div>
+        return <Loading/>
     }
 }

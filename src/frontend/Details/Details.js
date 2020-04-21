@@ -17,32 +17,34 @@ export default class Details extends React.Component {
             let fetchData = await fetch('/rest/sport')
             let data = await fetchData.json();
             let sport = data.find(sport => sport.id === sportId);
-            console.log(data);
             this.setState({ sport });
         } catch (error) {
             console.log(error)
         }
     }
     render() {
-        if (this.state.sport === undefined) {
-            return <Redirect to='/NotFound' />
-        } else if (this.state.sport.id) {
-            return (
-                <>
-                    <div className='Details'>
-                        <h1>{this.state.sport.title}</h1>
-                        <div className='content'>
-                            <div>{this.state.sport.details}</div>
-                            <img
-                                src={require(`../../images/${this.state.sport.id}.jpg`)}
-                                alt={this.state.sport.title}
-                            />
-                        </div>
-                        <Link to='/'>Back to Home Page</Link>
-                    </div>
-                </>
-            );
-        }
-        return <Loading />
+        return (
+            <>
+                {
+                    this.state.sport === undefined
+                        ? <Redirect to='/NotFound' />
+                        : this.state.sport.id
+                            ?
+                            <div className='Details'>
+                                <h1>{this.state.sport.title}</h1>
+                                <div className='content'>
+                                    <div>{this.state.sport.details}</div>
+                                    <img
+                                        src={require(`../../images/${this.state.sport.id}.jpg`)}
+                                        alt={this.state.sport.title}
+                                    />
+                                </div>
+                                <Link to='/'>Back to Home Page</Link>
+                            </div>
+
+                            : <Loading />
+                }
+            </>
+        )
     }
 }

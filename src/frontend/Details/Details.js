@@ -17,6 +17,7 @@ export default class Details extends React.Component {
             let fetchData = await fetch('/rest/sport')
             let data = await fetchData.json();
             let sport = data.find(sport => sport.id === sportId);
+            console.log(data);
             this.setState({ sport });
         } catch (error) {
             console.log(error)

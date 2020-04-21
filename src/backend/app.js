@@ -9,6 +9,7 @@ app.get('/rest/sport', (req, res) => {
    connection.then(dbo => {
       dbo.collection('sports').find({}).toArray((error, results) => {
           if (error) Promise.reject(error);
+          console.log(results);
           res.send(results);
       });
   });

@@ -13,6 +13,7 @@ class SportCategory extends React.Component {
       try {
           let fetchData = await fetch('/rest/sport')
           let dataSport = await fetchData.json();
+          console.log(dataSport);
           this.setState({ dataSport });
       } catch (error) {
           console.log(error)

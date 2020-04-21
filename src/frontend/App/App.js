@@ -1,14 +1,22 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import SportCategory from '../SportCategory/SportCategory';
-import Details from '../Details/Details';
-import NotFound from '../NotFound/NotFound';
+import React from 'react'
+import './App.css'
+import {  Route, Switch, withRouter } from 'react-router-dom'
+import SportCategory from '../SportCategory/SportCategory'
+import Details from '../Details/Details'
+import NotFound from '../NotFound/NotFound'
+import ReactGA from 'react-ga'
 
-function App() {
-  return (
-    <Router>
-
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    ReactGA.initialize('UA-164230375-1')
+    ReactGA.pageview(this.props.pathname + this.props.location.search + this.props.location.hash)
+    this.props.history.listen((location) => {
+      ReactGA.pageview(location.pathname + location.search + location.hash)
+    })
+  }
+  render() {
+    return (
       <div className='App'>
         <Switch>
           <Route exact path='/' component={SportCategory} />
@@ -16,9 +24,8 @@ function App() {
           <Route exact path='/:sportId' component={Details} />
         </Switch>
       </div>
-
-    </Router>
-  );
+    )
+  }
 }
 
-export default App;
+export default withRouter(App)

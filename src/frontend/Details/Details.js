@@ -1,23 +1,23 @@
-import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import Loading from '../Loading/Loading'
-import './Details.css';
+import './Details.css'
 
 export default class Details extends React.Component {
     constructor() {
-        super();
+        super()
         this.state = {
             sport: {}
         };
     }
 
     async componentDidMount() {
-        let sportId = this.props.match.params.sportId;
+        let sportId = this.props.match.params.sportId
         try {
             let fetchData = await fetch('/rest/sport')
             let data = await fetchData.json();
-            let sport = data.find(sport => sport.id === sportId);
-            this.setState({ sport });
+            let sport = data.find(sport => sport.id === sportId)
+            this.setState({ sport })
         } catch (error) {
             console.log(error)
         }
@@ -41,7 +41,6 @@ export default class Details extends React.Component {
                                 </div>
                                 <Link to='/'>Back to Home Page</Link>
                             </div>
-
                             : <Loading />
                 }
             </>

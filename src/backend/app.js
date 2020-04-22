@@ -32,7 +32,7 @@ app.get('/rest/sport/', (req, res) => {
 app.use(express.static(path.join(__dirname, '../../build')))
 
 app.get('*', function (req, res) {
-   res.sendFile(path.join(__dirname, '../../build', './public/index.html'))
+   res.sendFile(path.join(__dirname, '../../build', 'index.html'))
 });
 
 var server = app.listen(port, function () {

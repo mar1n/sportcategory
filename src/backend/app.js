@@ -4,6 +4,7 @@ const path = require('path')
 const db = require('./db')
 const connection = db.connect()
 const port = process.env.PORT || 3001
+const buildPath = '../../build';
 
 app.get('/rest/sport', (req, res) => {
    connection.then(dbo => {
@@ -14,11 +15,11 @@ app.get('/rest/sport', (req, res) => {
   })
  })
 
-app.use(express.static(path.join(__dirname, '../../build')))
+ app.use(express.static(path.join(__dirname, buildPath)));
 
-app.get('*', function (req, res) {
-   res.sendFile(path.join(__dirname, '../../build', './public/index.html'))
-});
+ app.get('*', (_req, res) => {
+     res.sendFile(path.join(__dirname, buildPath, 'index.html'));
+ });
 
 var server = app.listen(port, function () {
    var host = server.address().address

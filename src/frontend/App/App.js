@@ -5,6 +5,7 @@ import SportCategory from '../SportCategory/SportCategory'
 import Details from '../Details/Details'
 import NotFound from '../NotFound/NotFound'
 import ReactGA from 'react-ga'
+import Menu from '../Menu/Menu'
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends React.Component {
   render() {
     return (
       <div className='App'>
+        <Menu />
         <Switch>
           <Route exact path='/' component={SportCategory} />
           <Route exact path='/NotFound' component={NotFound} />

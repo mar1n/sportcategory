@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import './Menu.css'
-import menuicon from '../../images/menu-icon.svg'
-import sportsicon from '../../images/managesports.svg'
 import { Link } from 'react-router-dom'
-
+import MenuLink from './Menulink'
 
 const Menu = () => {
     const [visible, setVisible] = useState(false);
@@ -14,7 +12,7 @@ const Menu = () => {
     return (
         <div className={`Menu ${visible ? 'is-visible' : ''}`}>
             <button onClick={handleClick}>
-                <img className='icon' src={menuicon} alt='menu icon'></img>
+                <img className='icon' src={require(`../../images/menu-icon.svg`)} alt='menu icon'></img>
             </button>
             <div className='panel'>
                 <div className='dimmer' onClick={handleClick} />
@@ -23,12 +21,8 @@ const Menu = () => {
                         Hello menu!
                     </div>
                     <div className='menu-container'>
-                        <Link to='/manage/sports' onClick={handleClick}>
-                            <div className='item'>
-                                <img className='icon' src={sportsicon} alt='manage-sports' />
-                                <div className='itemName'>Mange Sports</div>
-                            </div>
-                        </Link>
+                        <MenuLink route='/' iconName='home-icon' linkName='Home' clickHandler={handleClick} />
+                        <MenuLink route='/manage/sports' iconName='managesports-icon' linkName='Manage Sports' clickHandler={handleClick} />
                     </div>
                 </div>
             </div>

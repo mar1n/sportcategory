@@ -5,6 +5,12 @@
     animation: menu-into-screen cubic-bezier(.68,-0.55,.5,1.50) 1s;
     z-index: 1;
 }
+.Menu a {
+    text-decoration: none;
+    color: inherit;
+    margin: 5px;
+    width: 340px;
+}
 
 @keyframes menu-into-screen {
     0% {
@@ -61,12 +67,19 @@
     color: chartreuse;
     font-size: 20px;
     padding-bottom: 31px;
+    width: 340px;
 }
 
 .menu-container {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+.itemName {
+    color: chartreuse;
 }
 
 @keyframes menu-open {

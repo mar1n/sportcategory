@@ -6,6 +6,7 @@ import Details from '../Details/Details'
 import NotFound from '../NotFound/NotFound'
 import ReactGA from 'react-ga'
 import Menu from '../Menu/Menu'
+import ManageSports from '../ManageSports/ManageSports'
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={SportCategory} />
           <Route exact path='/NotFound' component={NotFound} />
+          <Route exact path='/manage/sports' component={ManageSports} />
           <Route exact path='/:sportId' component={Details} />
         </Switch>
       </div>

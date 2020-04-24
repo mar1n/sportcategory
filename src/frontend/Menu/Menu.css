@@ -63,6 +63,12 @@
     padding-bottom: 31px;
 }
 
+.menu-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @keyframes menu-open {
     0% {
         height: 100%;

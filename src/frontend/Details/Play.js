@@ -33,10 +33,8 @@ class Play extends React.Component {
 const PlayPage = ({ sport }) => {
     return(<iframe
             title={sport.title}
-            width='100%'
-            height='100%'
-            src={`https://www.youtube.com/embed/oPtXLmHOKEw?autoplay=1&mute=1`}
-            />
+
+            width="100%" height="100%" src="https://www.youtube.com/embed/oPtXLmHOKEw?autoplay=1" allow="autoplay" frameborder="0" allowFullScree></iframe>
         )
 }
 

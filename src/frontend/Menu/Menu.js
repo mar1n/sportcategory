@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './Menu.css'
-import { Link } from 'react-router-dom'
 import MenuLink from './Menulink'
 
 const Menu = () => {
@@ -29,4 +28,4 @@ const Menu = () => {
         </div>
     )
 }
-export default Menu;
+export default Menu

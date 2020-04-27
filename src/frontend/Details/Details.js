@@ -29,20 +29,29 @@ export default class Details extends React.Component {
                         ? <Redirect to='/NotFound' />
                         : this.state.sport.id
                             ?
-                            <div className='Details'>
-                                <h1>{this.state.sport.title}</h1>
-                                <div className='content'>
-                                    <div>{this.state.sport.details}</div>
-                                    <img
-                                        src={require(`../../images/${this.state.sport.id}.jpg`)}
-                                        alt={this.state.sport.title}
-                                    />
-                                </div>
-                                <Link to='/'>Back to Home Page</Link>
-                            </div>
+                            <DetailsPage sports={this.state.sport} />
                             : <Loading />
                 }
             </>
         )
     }
+}
+
+const DetailsPage = ({ sports }) => {
+    return (
+        <>
+            <div className='Details'>
+                <h1>{sports.title}</h1>
+                <div className='content'>
+                    <div>{sports.details}</div>
+                    <img
+                        src={require(`../../images/${sports.id}.jpg`)}
+                        alt={sports.title}
+                    />
+                </div>
+                <Link to={`${sports.id}/play`}><h2>Click to watch rules of the Game.</h2></Link>
+                <Link to='/'>Back to Home Page</Link>
+            </div>
+        </>
+    )
 }

@@ -9,7 +9,7 @@ function connect() {
         MongoClient.connect(url2, { useUnifiedTopology: true, useNewUrlParser: true },  (error, db) => {
             if (error) reject(error)
             const dbo = db.db(dbName)
-            resolve(dbo);
+            resolve(dbo)
         })
     })
 }

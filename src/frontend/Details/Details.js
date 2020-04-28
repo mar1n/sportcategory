@@ -15,7 +15,7 @@ export default class Details extends React.Component {
         let sportId = this.props.match.params.sportId
         try {
             let fetchData = await fetch(`/rest/sport/${sportId}`)
-            let sport = await fetchData.json();
+            let sport = await fetchData.json()
             this.setState({ sport })
         } catch (error) {
             console.log(error)

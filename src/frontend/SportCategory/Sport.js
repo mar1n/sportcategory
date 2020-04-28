@@ -12,4 +12,4 @@ function Sport(props) {
   )
 }
 
-export default Sport;
+export default Sport

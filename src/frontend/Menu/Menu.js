@@ -3,10 +3,10 @@ import './Menu.css'
 import MenuLink from './Menulink'
 
 const Menu = () => {
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(false)
 
     const handleClick = () => {
-        setVisible(!visible);
+        setVisible(!visible)
     }
     return (
         <div className={`Menu ${visible ? 'is-visible' : ''}`}>

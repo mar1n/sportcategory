@@ -8,9 +8,7 @@ const port = process.env.PORT || 3001
 
 
 app.get('/rest/sport/:id', (req, res) => {
-   console.log(req.params.id);
    connection.then(dbo => {
-
       dbo.collection('sports').findOne({id: req.params.id},(error, results) => {
           if (error) Promise.reject(error)
           res.send(results)

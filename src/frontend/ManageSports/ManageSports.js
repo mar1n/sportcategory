@@ -11,4 +11,4 @@ const ManageSports = () =>
             </h1>
         </Link>
     </div>
-export default ManageSports;
+export default ManageSports

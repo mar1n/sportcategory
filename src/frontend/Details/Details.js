@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import Loading from '../Loading/Loading'
+import PlayButton from './PlayButton'
+
 import './Details.css'
 
 export default class Details extends React.Component {
@@ -49,7 +51,10 @@ const DetailsPage = ({ sports }) => {
                         alt={sports.title}
                     />
                 </div>
-                <Link to={`${sports.id}/play`}><h2>Click to watch rules of the Game.</h2></Link>
+                <h4>Watch the Rules</h4>
+                <Link to={`${sports.id}/play`}>
+                    <PlayButton />
+                </Link>
                 <Link to='/'>Back to Home Page</Link>
             </div>
         </>

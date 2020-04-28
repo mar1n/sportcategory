@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "mongodb": "^3.5.6",
     "nodemon": "^2.0.3",
@@ -28,7 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-backend": "nodemon ./src/backend/app.js",
-    "start-dev": "set NODE_ENV=development&& npm-run-all -p start-backend start-frontend"
+    "start-dev": "cross-env NODE_ENV=development npm-run-all -p start-backend start-frontend"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -19,9 +19,18 @@
     background: transparent;
     font-size: 16px;
     color: white;
+    text-decoration: none;
     padding: 5px;
+    border: 1px solid white;
     margin-top: 2em;
     cursor: pointer;
+    transition: cubic-bezier(0.26, 0.15, 0.46, 1) 0.25s;
+}
+
+.AdminList .AddSport:hover {
+    border-color: cyan;
+    color: cyan;
+    background: rgb(39, 58, 82, 0.2);
 }
 
 .AdminList .AddSport .icon {

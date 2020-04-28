@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Loading from '../Loading/Loading'
 import './AdminList.css'
 
@@ -35,12 +35,12 @@ const AdminListPage = ({ sports }) =>{
     return <div className='AdminList'>
             <div className='Header'>
                 <h4>Sports Database:</h4>
-                <button className='AddSport'>
+                <Link className='AddSport' to='./add'>
                     <div>Add Sport</div>
                     <img className='icon'
                         src={require(`../../images/addicon.svg`)}
                         alt={'Add icon'} />
-                </button>
+                </Link>
             </div>
             <Sports sports={sports} />
             </div>

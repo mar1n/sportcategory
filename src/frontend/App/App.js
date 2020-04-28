@@ -26,10 +26,11 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={SportCategory} />
           <Route exact path='/NotFound' component={NotFound} />
-          <Route exact path='/manage/sports' component={ManageSports} />
+          <Route path='/admin/sport' component={Admin} />
+          <Route path='/manage/sports' component={ManageSports} />
           <Route exact path='/:sportID/play' component={Play} />
           <Route exact path='/:sportId' component={Details} />
-          <Route exact path='/admin/sport' component={Admin} />
+          
           <Route render={() => <Redirect to='/NotFound' />} />
         </Switch>
       </div>

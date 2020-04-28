@@ -21,7 +21,7 @@ const Menu = () => {
                     </div>
                     <div className='menu-container'>
                         <MenuLink route='/' iconName='home-icon' linkName='Home' clickHandler={handleClick} />
-                        <MenuLink route='/manage/sports' iconName='managesports-icon' linkName='Manage Sports' clickHandler={handleClick} />
+                        <MenuLink route='/admin/sport' iconName='managesports-icon' linkName='Admin Sports' clickHandler={handleClick} />
                     </div>
                 </div>
             </div>

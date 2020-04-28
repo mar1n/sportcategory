@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import {  Route, Switch, withRouter } from 'react-router-dom'
+import {  Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import SportCategory from '../SportCategory/SportCategory'
 import Details from '../Details/Details'
 import NotFound from '../NotFound/NotFound'
@@ -8,6 +8,7 @@ import ReactGA from 'react-ga'
 import Menu from '../Menu/Menu'
 import ManageSports from '../ManageSports/ManageSports'
 import Play from '../Details/Play'
+import Admin from '../Admin/Admin'
 
 class App extends React.Component {
   constructor(props) {
@@ -28,6 +29,8 @@ class App extends React.Component {
           <Route exact path='/manage/sports' component={ManageSports} />
           <Route exact path='/:sportID/play' component={Play} />
           <Route exact path='/:sportId' component={Details} />
+          <Route exact path='/admin/sport' component={Admin} />
+          <Route render={() => <Redirect to='/NotFound' />} />
         </Switch>
       </div>
     )

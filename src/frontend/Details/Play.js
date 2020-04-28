@@ -34,7 +34,7 @@ const PlayPage = ({ sport }) => {
     return(<iframe
             title={sport.title}
 
-            width="100%" height="100%" src={`https://www.youtube.com/embed/${sport.videoID}?autoplay=1`} allow="autoplay" frameborder="0" allowFullScree></iframe>
+            width="100%" height="100%" src={`https://www.youtube.com/embed/${sport.videoID}?autoplay=1`} allow="autoplay"></iframe>
         )
 }
 

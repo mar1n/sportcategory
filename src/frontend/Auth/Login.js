@@ -12,17 +12,10 @@ class Login extends React.Component {
         }
     }
 
-    handleUsername = event => {
-        const username = event.target.value
-        this.setState(() => ({ username }))
-    }
-
-    handlePassword = event => {
-        const input = event.target.value
-        const md = forge.md.sha256.create()
-        md.update(input)
-        console.log(`password input : ${input} sha: ${md.digest().toHex()}`)
-        this.setState(() => ({ password: input }))
+    handleInput = (name, value) => {
+        this.setState(() => ({
+            [name]: value
+        }));
     }
 
     handleSubmit = event => {
@@ -40,9 +33,16 @@ class Login extends React.Component {
         .then(res => { 
             console.log("Result: " + Object.entries(res))
             if(res.result) {
-                this.props.showSuccessfullLogin(res.username)
+                this.props.showLoginBanner({
+                    message: `Successful Login, welcome ${res.username}!`,
+                    isSuccess: true
+                });
+                this.props.history.push('/');
             } else {
-
+                this.props.showLoginBanner({
+                    message: `${res.message}`,
+                    isSuccess: false
+                });
             }
         })
         .catch()
@@ -56,11 +56,11 @@ class Login extends React.Component {
                     <label htmlFor='username'>Username:</label>
                     <input name='username'
                         type='text'
-                        onChange={this.handleUsername} />
+                        onChange={({ target }) => this.handleInput(target.name, target.value)} />
                         <label htmlFor='password'>Password:</label>
                         <input name='password'
                             type='password'
-                            onChange={this.handlePassword} />
+                            onChange={({ target }) => this.handleInput(target.name, target.value)} />
                         <input type='submit'
                             value='Log in' />
                 </form>

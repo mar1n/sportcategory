@@ -21,21 +21,21 @@ class App extends React.Component {
       ReactGA.pageview(location.pathname + location.search + location.hash)
     })
     this.state = {
-      showBanner: { show: false, name: '' }
+      showBanner: { show: false, banner: {} }
     }
   }
 
-  showSuccessfullLogin = (name) => {
+  showLoginBanner = banner => {
     this.setState(() => ({
-      showBanner: { show: true, name }
+      showBanner: { show: true, banner }
     }))
   }
 
-  hideSuccessfullLogin = () => {
+  hideLoginBanner = delay => {
     setTimeout(() => 
     this.setState(() => ({
-      showBanner: { show: false, name: '' }
-    })), 3500)
+      showBanner: { show: false, banner: {} }
+    })), delay)
   }
 
   render() {
@@ -46,7 +46,8 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={SportCategory} />
           <Route exact path='/NotFound' component={NotFound} />
-          <Route exact path='/login' render={() => <Login showSuccessfullLogin={this.showSuccessfullLogin} />} />
+          <Route exact path='/login' render={() => 
+            <Login showLoginBanner={this.showLoginBanner} />} />
           <Route path='/admin/sport' component={Admin} />
           <Route path='/manage/sports' component={ManageSports} />
           <Route exact path='/:sportID/play' component={Play} />
@@ -54,11 +55,10 @@ class App extends React.Component {
           
           <Route render={() => <Redirect to='/NotFound' />} />
         </Switch>
-        {
-          showBanner.show ?
-          <Banner name={showBanner.name} hideSuccessfullLogin={this.hideSuccessfullLogin} />
-          : <></>
-        }
+        {showBanner.show ? 
+          <Banner banner={showBanner.banner} 
+            hideLoginBanner={this.hideLoginBanner} /> :
+          <></>}
       </div>
     )
   }

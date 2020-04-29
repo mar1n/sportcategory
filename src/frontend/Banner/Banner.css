@@ -12,6 +12,14 @@
     animation-fill-mode: forwards;
 }
 
+.Banner .Success {
+    background: rbg(0, 151, 20, 0.6)
+}
+
+.Banner .Fail {
+    background: rgb(151, 0, 0, 0.6)
+}
+
 @keyframes Banner {
     0%, 100% {
         top: -65px;

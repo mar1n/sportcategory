@@ -85,9 +85,7 @@ export default class AdminAdd extends React.Component {
                         <input type='submit' value='Submit' />
                     </fieldset>
                     <label className='Required'>
-                        <img className='Asterisk'
-                            src={require(`../../images/asteriskicon.svg`)}
-                            alt={'Required Field'} />
+                        <Asterisk />
                         Required Field
                     </label>
                 </form>
@@ -100,9 +98,7 @@ export default class AdminAdd extends React.Component {
 const InputField = ({name, required, wantsImage, placeholder, handle}) => {
     return(<>
         <label htmlFor={name}>
-            {required ? <img className='Asterisk'
-            src={require(`../../images/asteriskicon.svg`)}
-            alt={'Required Field'} /> : <></>}
+            {required ? <Asterisk /> : <></>}
             {name}:
         </label>
         <input type={wantsImage ? 'file' : 'text'} 
@@ -111,4 +107,10 @@ const InputField = ({name, required, wantsImage, placeholder, handle}) => {
             placeholder={placeholder}
             onChange={handle} />
     </>)
+}
+
+const Asterisk = () =>{
+    return <img className='Asterisk'
+                src={require(`../../images/asteriskicon.svg`)}
+                alt={'Required Field'} />
 }

@@ -2,9 +2,16 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const db = require('./db')
+const bodyParser = require('body-parser')
+var jsonParser = bodyParser.json()
 const connection = db.connect()
 const port = process.env.PORT || 3001
 
+
+
+app.post('/login', jsonParser, (req, res) => {
+   res.send('test, username: ' + req.body.username + " password: " + req.body.password);
+})
 
 
 app.get('/rest/sport/:id', (req, res) => {

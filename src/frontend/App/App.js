@@ -9,6 +9,7 @@ import Menu from '../Menu/Menu'
 import ManageSports from '../ManageSports/ManageSports'
 import Play from '../Details/Play'
 import Admin from '../Admin/Admin'
+import Login from '../Auth/Login'
 
 class App extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={SportCategory} />
           <Route exact path='/NotFound' component={NotFound} />
+          <Route exact path='/login' component={Login} />
           <Route path='/admin/sport' component={Admin} />
           <Route path='/manage/sports' component={ManageSports} />
           <Route exact path='/:sportID/play' component={Play} />

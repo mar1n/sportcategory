@@ -4,7 +4,7 @@ import MenuLink from './Menulink'
 
 const Menu = () => {
     const [visible, setVisible] = useState(false)
-
+    const [loggedIn, setLoggedIn] = useState(false)
     const handleClick = () => {
         setVisible(!visible)
     }
@@ -22,6 +22,17 @@ const Menu = () => {
                     <div className='menu-container'>
                         <MenuLink route='/' iconName='home-icon' linkName='Home' clickHandler={handleClick} />
                         <MenuLink route='/admin/sport/list' iconName='managesports-icon' linkName='Admin Sports' clickHandler={handleClick} />
+                        {loggedIn
+                            ? <MenuLink route='/logout'
+                                iconName='logout'
+                                linkName='Log out'
+                                clickHandler={handleClick} />
+                            : <MenuLink route='/login'
+                                iconName='loginicon'
+                                linkName='Log in'
+                                clickHandler={handleClick}
+                            />
+                        }
                     </div>
                 </div>
             </div>

@@ -8,8 +8,7 @@ const SALT_ROUNDS = 12
 const forge = require('node-forge')
 const app = express()
 const port = process.env.PORT || 3001
-const DB_ADMIN_PWD = 'xxxx'
-
+const DB_ADMIN_PWD = process.env.DB_ADMIN_PWD
 app.use(db.sessionStore())
 
 const connection = db.connect()

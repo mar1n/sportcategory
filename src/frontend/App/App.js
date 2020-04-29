@@ -10,6 +10,7 @@ import ManageSports from '../ManageSports/ManageSports'
 import Play from '../Details/Play'
 import Admin from '../Admin/Admin'
 import Login from '../Auth/Login'
+import Banner from '../Banner/Banner'
 
 class App extends React.Component {
   constructor(props) {
@@ -19,15 +20,33 @@ class App extends React.Component {
     this.props.history.listen((location) => {
       ReactGA.pageview(location.pathname + location.search + location.hash)
     })
+    this.state = {
+      showBanner: { show: false, name: '' }
+    }
   }
+
+  showSuccessfullLogin = (name) => {
+    this.setState(() => ({
+      showBanner: { show: true, name }
+    }))
+  }
+
+  hideSuccessfullLogin = () => {
+    setTimeout(() => 
+    this.setState(() => ({
+      showBanner: { show: false, name: '' }
+    })), 3500)
+  }
+
   render() {
+    let showBanner = this.state.showBanner
     return (
       <div className='App'>
         <Menu />
         <Switch>
           <Route exact path='/' component={SportCategory} />
           <Route exact path='/NotFound' component={NotFound} />
-          <Route exact path='/login' component={Login} />
+          <Route exact path='/login' render={() => <Login showSuccessfullLogin={this.showSuccessfullLogin} />} />
           <Route path='/admin/sport' component={Admin} />
           <Route path='/manage/sports' component={ManageSports} />
           <Route exact path='/:sportID/play' component={Play} />
@@ -35,6 +54,11 @@ class App extends React.Component {
           
           <Route render={() => <Redirect to='/NotFound' />} />
         </Switch>
+        {
+          showBanner.show ?
+          <Banner name={showBanner.name} hideSuccessfullLogin={this.hideSuccessfullLogin} />
+          : <></>
+        }
       </div>
     )
   }

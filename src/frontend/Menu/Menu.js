@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import './Menu.css'
 import MenuLink from './Menulink'
 
-const Menu = () => {
+const Menu = ({ loginInfo }) => {
     const [visible, setVisible] = useState(false)
-    const [loggedIn, setLoggedIn] = useState(false)
     const handleClick = () => {
         setVisible(!visible)
     }
@@ -16,15 +15,17 @@ const Menu = () => {
             <div className='panel'>
                 <div className='dimmer' onClick={handleClick} />
                 <div className='bar'>
-                    <div className='title'>
-                        Hello menu!
-                    </div>
+                <div className='title'>{
+                        loginInfo.name ? 
+                            `Welcome ${loginInfo.name}` :
+                            'Hello menu!'
+                    }</div>
                     <div className='menu-container'>
                         <MenuLink route='/' iconName='home-icon' linkName='Home' clickHandler={handleClick} />
                         <MenuLink route='/admin/sport/list' iconName='managesports-icon' linkName='Admin Sports' clickHandler={handleClick} />
-                        {loggedIn
+                        {loginInfo.name
                             ? <MenuLink route='/logout'
-                                iconName='logout'
+                                iconName='logouticon'
                                 linkName='Log out'
                                 clickHandler={handleClick} />
                             : <MenuLink route='/login'

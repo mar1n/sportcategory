@@ -10,6 +10,7 @@ import ManageSports from '../ManageSports/ManageSports'
 import Play from '../Details/Play'
 import Admin from '../Admin/Admin'
 import Login from '../Auth/Login'
+import Logout from '../Auth/Logout'
 import Banner from '../Banner/Banner'
 
 class App extends React.Component {
@@ -21,14 +22,23 @@ class App extends React.Component {
       ReactGA.pageview(location.pathname + location.search + location.hash)
     })
     this.state = {
-      showBanner: { show: false, banner: {} }
+      showBanner: { show: false, banner: {} },
+      loginInfo: { name: null }
     }
+    this.logOut = this.logOut.bind(this)
   }
 
-  showLoginBanner = banner => {
+  logIn = (banner, loginInfo) => {
     this.setState(() => ({
-      showBanner: { show: true, banner }
-    }))
+      showBanner: {show: true, banner },
+      loginInfo
+    }));
+  }
+
+  logOut = () => {
+    this.setState(() => ({
+      loginInfo: { name: null }
+    }));
   }
 
   hideLoginBanner = delay => {
@@ -39,15 +49,17 @@ class App extends React.Component {
   }
 
   render() {
-    let showBanner = this.state.showBanner
+    let { showBanner, loginInfo } = this.state
     return (
       <div className='App'>
-        <Menu />
+        <Menu loginInfo={loginInfo} />
         <Switch>
           <Route exact path='/' component={SportCategory} />
           <Route exact path='/NotFound' component={NotFound} />
-          <Route exact path='/login' render={() => 
-            <Login showLoginBanner={this.showLoginBanner} />} />
+          <Route exact path='/login' render={props =>
+            <Login {...props} logIn={this.logIn} />} />
+          <Route exact path='/logout' render={() =>
+            <Logout logOut={this.logOut} />} />
           <Route path='/admin/sport' component={Admin} />
           <Route path='/manage/sports' component={ManageSports} />
           <Route exact path='/:sportID/play' component={Play} />

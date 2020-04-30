@@ -14,11 +14,11 @@ app.use(db.sessionStore())
 const connection = db.connect()
 
 connection.then(dbo => {
-   const users = dbo.collection('users');
+   const users = dbo.collection('users')
 
-   let md = forge.md.sha256.create();
-   md.update(DB_ADMIN_PWD);
-   const password = md.digest().toHex();
+   let md = forge.md.sha256.create()
+   md.update(DB_ADMIN_PWD)
+   const password = md.digest().toHex()
    bcrypt.hash(password, SALT_ROUNDS).then(hashedPassword => {
        users.updateOne(
            { username: 'Admin' },
@@ -27,50 +27,49 @@ connection.then(dbo => {
                isAdmin: true
            }},
            { upsert: true }
-       );
-   });
-});
+       )
+   })
+})
 
-// Validate user logins
 app.post('/login', jsonParser, (req, response) => {
-   const { username, password } = req.body;
-   response.setHeader('Content-Type', 'application/json')
-   if (typeof username !== 'string' || typeof password !== 'string') {
-       response.send("Invalid input");
-   }
-   connection.then(dbo => {
-       dbo.collection('users').findOne({ username }, (error, result) => {
-               if (error) Promise.reject(error);
-               if (result) { // User found
-                   bcrypt.compare(password, result.password, (err, res) => {
-                       if (err) Promise.reject(err);
-                       if (res) { // Check if the password is valid for user
-                           if (result.isAdmin) {
-                               req.session.isAdmin = true;
-                               req.session.username = username;
-                           }
-                           response.end(JSON.stringify({
-                               result: true,
-                               message: 'Successful login!',
-                               username
-                           }));
-                       } else {
-                           response.end(JSON.stringify({
-                                result: false,
-                                message: 'Invalid login details'
-                            }));
-                       }
-                   });
-               } else {
-                   response.end(JSON.stringify({
-                        result: false,
-                        message: 'Invalid login details'
-                    }));
-               }
-           }
-       );
-   });
-});
+    const { username, password } = req.body;
+    response.setHeader('Content-Type', 'application/json')
+    if (typeof username !== 'string' || typeof password !== 'string') {
+        response.send("Invalid input")
+    }
+    connection.then(dbo => {
+        dbo.collection('users').findOne({ username }, (error, result) => {
+            if (error) Promise.reject(error)
+            if (result) {
+                bcrypt.compare(password, result.password, (err, res) => {
+                    if (err) Promise.reject(err)
+                    if (res) {
+                        if (result.isAdmin) {
+                            req.session.isAdmin = true;
+                            req.session.username = username;
+                        }
+                        response.end(JSON.stringify({
+                            result: true,
+                            message: 'Successful login!',
+                            username
+                        }))
+                    } else { 
+                        response.end(JSON.stringify({
+                            result: false,
+                            message: 'Invalid login details'
+                        }))
+                    }
+                })
+            } else { 
+                response.end(JSON.stringify({
+                    result: false,
+                    message: 'Invalid login details'
+                }))
+            }
+        }
+        )
+    })
+})
 
 
 

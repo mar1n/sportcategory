@@ -1,11 +1,10 @@
 import React from 'react'
 import * as forge from 'node-forge'
-import { withRouter } from 'react-router-dom'
 import './Login.css'
 
 class Login extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             username: '',
             password: ''
@@ -33,16 +32,22 @@ class Login extends React.Component {
         .then(res => { 
             console.log("Result: " + Object.entries(res))
             if(res.result) {
-                this.props.showLoginBanner({
+                this.props.logIn({
                     message: `Successful Login, welcome ${res.username}!`,
                     isSuccess: true
+                },
+                {
+                    name: res.username
                 });
-                this.props.history.push('/');
+                this.props.history.push('/')
             } else {
-                this.props.showLoginBanner({
+                this.props.logIn({
                     message: `${res.message}`,
                     isSuccess: false
-                });
+                },
+                {
+                    name: null
+                })
             }
         })
         .catch()
@@ -69,4 +74,4 @@ class Login extends React.Component {
     }
 }
 
-export default  withRouter(Login)
+export default  Login

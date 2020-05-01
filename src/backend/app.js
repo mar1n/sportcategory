@@ -65,19 +65,29 @@ app.get('/loggedIn', (req, res) => {
 })
 
 app.get('/logout', (req, res) => {
+    console.log(req.session.id)
+    const id = req.session.id
     req.session.destroy(err => {
         if (err) {
             console.log(err)
             res.end(JSON.stringify({
                 result: false,
                 message: 'Could not Log out!'
-            }));
+            }))
         } else {
+            connection.then(dbo => {
+                dbo.collection('sessions').deleteOne({ _id: id }, 
+                    (error, result) => {
+                        if (error) Promise.reject(error)
+                        console.log("Session deleted from database: " + result)
+                    }
+                )
+            })
             console.log("Session destroyed!");
             res.end(JSON.stringify({
                 result: true,
                 message: 'Successfully Logged out!'
-            }));
+            }))
         }
     })
 })

@@ -19,7 +19,9 @@ export default class AdminEdit extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`/rest/sport/${this.props.match.params.details}`).then(res => {
+        fetch(`/rest/sport/${this.props.match.params.details}`, {
+            credentials: 'include'
+        }).then(res => {
             return res.ok ? res.json() : Promise.reject()
         }).then(sport => {
             this.setState({ fields: { ...sport } })

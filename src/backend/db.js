@@ -24,6 +24,7 @@ function sessionStore() {
         resave: true,
         rolling: true,
         saveUninitialized: false,
+        unset: 'destroy',
         store: new MongoStore({
             url: url2,
             collection: 'sessions'

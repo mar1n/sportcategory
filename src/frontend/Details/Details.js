@@ -42,14 +42,20 @@ export default class Details extends React.Component {
 const DetailsPage = ({ sports }) => {
     return (
         <>
-            <div className='Details'>
+            <div className='Details' style={{ background: (() => {
+                try {
+                    return `url(${require(`../../images/background/${sports.id}.jpg`)})`;
+                } catch {
+                    return `url(${require(`../../images/background/default.jpg`)})`;
+                }
+            })()}}>
                 <h1>{sports.title}</h1>
                 <div className='content'>
                     <div>{sports.details}</div>
-                    <img
+                    {/* <img
                         src={require(`../../images/${sports.id}.jpg`)}
                         alt={sports.title}
-                    />
+                    /> */}
                 </div>
                 <h4>Watch the Rules</h4>
                 <Link to={`${sports.id}/play`}>

@@ -20,7 +20,9 @@ function connect() {
 function sessionStore() {
     return session({
         secret: DB_SESSION_SALT,
-        resave: false,
+        cookie: { maxAge: 10 * 60 * 1000 },
+        resave: true,
+        rolling: true,
         saveUninitialized: false,
         store: new MongoStore({
             url: url2,

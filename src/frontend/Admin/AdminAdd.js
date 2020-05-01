@@ -6,29 +6,40 @@ export default class AdminAdd extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            id: '',
-            title: '',
-            details: '',
-            videoId: '',
-            imageCover: '',
-            imageBackground: ''
+            fields: {
+                id: '',
+                title: '',
+                details: '',
+                videoId: '',
+                imageCover: '',
+                imageBackground: ''
+            },
+            enableSubmit: false
         }
     }
 
     handleInput = (name, value) => {
         this.setState(() => ({
-            [name]: value
+           fields: { [name]: value }
         }))
     }
 
     handleSubmit = (event) => {
         event.preventDefault()
-        console.log(event.target)
+        let formData = new FormData(event.target)
+        fetch('rest/admin/addSport', {
+            method: 'post',
+            body: formData
+        }).then(res => {
+            return res.ok ? res.json() : Promise.reject()
+        }).then(res => {
+            return res.result ? '' : ''
+        })
     }
     render() {
         return (
             <div className='AdminAdd'>
-                Please enter the details of the TV Show you would like to add:
+                Please enter the details of the Sport you would like to add:
                 <form onSubmit={this.handleSubmit}>
                     <fieldset>
                         <legend>
@@ -84,7 +95,7 @@ export default class AdminAdd extends React.Component {
                                 }
                             />
                         </div>
-                        <input type='submit' value='Submit' />
+                        <input type='submit' value='Submit Sport' />
                     </fieldset>
                     <label className='Required'>
                         <Asterisk />

@@ -17,7 +17,7 @@ export default function Admin({ match, loginInfo }) {
                     exact path={`${match.path}/add`}
                     component={AdminAdd} />
                 <Route
-                    exact path={`${match.path}/edit`}
+                    exact path={`${match.path}/edit/:sport`}
                     component={AdminEdit} />
                 <Route render={() => <Redirect to='/NotFound' />} />
             </Switch>

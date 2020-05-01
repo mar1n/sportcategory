@@ -65,7 +65,8 @@ app.get('/loggedIn', (req, res) => {
 })
 
 app.get('/logout', (req, res) => {
-    req.session.destroy()
+    console.log("Destroying session: " + req.session.destroy())
+    req.session = null
     res.end(JSON.stringify({
         result: true,
         message: 'Successfully Logged out!'

@@ -37,8 +37,9 @@ class Login extends React.Component {
                     isSuccess: true
                 },
                 {
-                    username: res.username
-                });
+                    username: res.username,
+                    ...(res.isAdmin ? { isAdmin: true } : {})
+                })
                 this.props.history.push('/')
             } else {
                 this.props.logIn({

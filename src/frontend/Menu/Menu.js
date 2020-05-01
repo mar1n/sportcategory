@@ -15,14 +15,24 @@ const Menu = ({ loginInfo }) => {
             <div className='panel'>
                 <div className='dimmer' onClick={handleClick} />
                 <div className='bar'>
-                <div className='title'>{
-                        loginInfo.username ? 
+                    <div className='title'>{
+                        loginInfo.username ?
                             `Welcome ${loginInfo.username}` :
                             'Hello menu!'
                     }</div>
                     <div className='menu-container'>
-                        <MenuLink route='/' iconName='home-icon' linkName='Home' clickHandler={handleClick} />
-                        <MenuLink route='/admin/sport/list' iconName='managesports-icon' linkName='Admin Sports' clickHandler={handleClick} />
+                        <MenuLink route='/'
+                            iconName='home-icon'
+                            linkName='Home'
+                            clickHandler={handleClick}
+                        />
+                        {loginInfo.isAdmin ?
+                            <MenuLink route='/admin/sport/list'
+                                iconName='managesports-icon'
+                                linkName='Admin Sports'
+                                clickHandler={handleClick}
+                            /> : <></>
+                        }
                         {loginInfo.username
                             ? <MenuLink route='/logout'
                                 iconName='logouticon'

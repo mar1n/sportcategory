@@ -12,6 +12,7 @@ import Admin from '../Admin/Admin'
 import Login from '../Auth/Login'
 import Logout from '../Auth/Logout'
 import Banner from '../Banner/Banner'
+import Loading from '../Loading/Loading'
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class App extends React.Component {
     })
     this.state = {
       showBanner: { show: false, banner: {} },
-      loginInfo: { username: null }
+      loginInfo: null
     }
     //this.logOut = this.logOut.bind(this)
   }
@@ -35,9 +36,12 @@ class App extends React.Component {
       if (res.result) {
         this.setState(() => ({
           loginInfo: {
-            username: res.username
+            username: res.username,
+            ...(res.isAdmin ? { isAdmin: true } : {})
           }
         }))
+      } else {
+        this.setState(() => ({ loginInfo: {} }))
       }
     })
   }
@@ -64,6 +68,9 @@ class App extends React.Component {
   }
 
   render() {
+    if(!this.state.loginInfo) {
+      return <Loading />
+    }
     let { showBanner, loginInfo } = this.state
     return (
       <div className='App'>
@@ -75,7 +82,8 @@ class App extends React.Component {
             <Login {...props} logIn={this.logIn} />} />
           <Route exact path='/logout' render={() =>
             <Logout logOut={this.logOut} />} />
-          <Route path='/admin/sport' component={Admin} />
+          <Route path='/admin/sport' render={props =>
+            <Admin {...props} loginInfo={loginInfo} />} />
           <Route path='/manage/sports' component={ManageSports} />
           <Route exact path='/:sportID/play' component={Play} />
           <Route exact path='/:sportId' component={Details} />

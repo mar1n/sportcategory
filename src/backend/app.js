@@ -36,7 +36,8 @@ app.get('/loggedIn', (req, res) => {
     if (req.session.username) {
         res.end(JSON.stringify({
             result: true,
-            username: req.session.username
+            username: req.session.username,
+            ...(req.session.isAdmin ? { isAdmin: true } : {})
         }))
     } else {
         res.end(JSON.stringify({
@@ -68,7 +69,8 @@ app.post('/login', jsonParser, (req, response, next) => {
                         response.end(JSON.stringify({
                             result: true,
                             message: 'Successful login!',
-                            username
+                            username,
+                            ...(result.isAdmin ? { isAdmin: true} : {})
                         }))
                     } else {
                         response.end(JSON.stringify({

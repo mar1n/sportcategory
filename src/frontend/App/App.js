@@ -23,9 +23,23 @@ class App extends React.Component {
     })
     this.state = {
       showBanner: { show: false, banner: {} },
-      loginInfo: { name: null }
+      loginInfo: { username: null }
     }
-    this.logOut = this.logOut.bind(this)
+    //this.logOut = this.logOut.bind(this)
+  }
+
+  componentDidMount() {
+    fetch('/loggedIn').then(res => {
+      return res.ok ? res.json() : Promise.reject();
+    }).then(res => {
+      if (res.result) {
+        this.setState(() => ({
+          loginInfo: {
+            username: res.username
+          }
+        }))
+      }
+    })
   }
 
   logIn = (banner, loginInfo) => {
@@ -35,13 +49,14 @@ class App extends React.Component {
     }));
   }
 
-  logOut = () => {
+  logOut = (banner) => {
     this.setState(() => ({
-      loginInfo: { name: null }
+      showBanner: { show: true, banner },
+      loginInfo: { username: null }
     }));
   }
 
-  hideLoginBanner = delay => {
+  hideBanner = delay => {
     setTimeout(() => 
     this.setState(() => ({
       showBanner: { show: false, banner: {} }
@@ -69,7 +84,7 @@ class App extends React.Component {
         </Switch>
         {showBanner.show ? 
           <Banner banner={showBanner.banner} 
-            hideLoginBanner={this.hideLoginBanner} /> :
+            hideBanner={this.hideBanner} /> :
           <></>}
       </div>
     )

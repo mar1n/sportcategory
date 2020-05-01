@@ -31,11 +31,28 @@ connection.then(dbo => {
    })
 })
 
-app.post('/login', jsonParser, (req, response) => {
-    const { username, password } = req.body;
+app.get('/loggedIn', (req, res) => {
+    res.setHeader('Content-Type', 'application/json')
+    if (req.session.username) {
+        res.end(JSON.stringify({
+            result: true,
+            username: req.session.username
+        }))
+    } else {
+        res.end(JSON.stringify({
+            result: false,
+            username: null
+        }))
+    }
+})
+
+app.post('/login', jsonParser, (req, response, next) => {
+    const { username, password } = req.body
     response.setHeader('Content-Type', 'application/json')
+
     if (typeof username !== 'string' || typeof password !== 'string') {
-        response.send("Invalid input")
+        response.send(401)
+        return next()
     }
     connection.then(dbo => {
         dbo.collection('users').findOne({ username }, (error, result) => {
@@ -45,29 +62,28 @@ app.post('/login', jsonParser, (req, response) => {
                     if (err) Promise.reject(err)
                     if (res) {
                         if (result.isAdmin) {
-                            req.session.isAdmin = true;
-                            req.session.username = username;
+                            req.session.isAdmin = true
+                            req.session.username = username
                         }
                         response.end(JSON.stringify({
                             result: true,
                             message: 'Successful login!',
                             username
                         }))
-                    } else { 
+                    } else {
                         response.end(JSON.stringify({
                             result: false,
                             message: 'Invalid login details'
                         }))
                     }
-                })
-            } else { 
+                });
+            } else {
                 response.end(JSON.stringify({
                     result: false,
                     message: 'Invalid login details'
                 }))
             }
-        }
-        )
+        })
     })
 })
 

@@ -16,14 +16,14 @@ const Menu = ({ loginInfo }) => {
                 <div className='dimmer' onClick={handleClick} />
                 <div className='bar'>
                 <div className='title'>{
-                        loginInfo.name ? 
-                            `Welcome ${loginInfo.name}` :
+                        loginInfo.username ? 
+                            `Welcome ${loginInfo.username}` :
                             'Hello menu!'
                     }</div>
                     <div className='menu-container'>
                         <MenuLink route='/' iconName='home-icon' linkName='Home' clickHandler={handleClick} />
                         <MenuLink route='/admin/sport/list' iconName='managesports-icon' linkName='Admin Sports' clickHandler={handleClick} />
-                        {loginInfo.name
+                        {loginInfo.username
                             ? <MenuLink route='/logout'
                                 iconName='logouticon'
                                 linkName='Log out'

@@ -37,7 +37,7 @@ class Login extends React.Component {
                     isSuccess: true
                 },
                 {
-                    name: res.username
+                    username: res.username
                 });
                 this.props.history.push('/')
             } else {
@@ -46,7 +46,7 @@ class Login extends React.Component {
                     isSuccess: false
                 },
                 {
-                    name: null
+                    username: null
                 })
             }
         })

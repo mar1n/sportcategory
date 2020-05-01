@@ -20,7 +20,6 @@ function connect() {
 function sessionStore() {
     return session({
         secret: DB_SESSION_SALT,
-        cookie: { maxAge: 60 * 1000 },
         resave: false,
         saveUninitialized: false,
         store: new MongoStore({

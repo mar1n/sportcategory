@@ -65,12 +65,21 @@ app.get('/loggedIn', (req, res) => {
 })
 
 app.get('/logout', (req, res) => {
-    console.log("Destroying session: " + req.session.destroy())
-    req.session = null
-    res.end(JSON.stringify({
-        result: true,
-        message: 'Successfully Logged out!'
-    }))
+    req.session.destroy(err => {
+        if (err) {
+            console.log(err)
+            res.end(JSON.stringify({
+                result: false,
+                message: 'Could not Log out!'
+            }));
+        } else {
+            console.log("Session destroyed!");
+            res.end(JSON.stringify({
+                result: true,
+                message: 'Successfully Logged out!'
+            }));
+        }
+    })
 })
 
 app.post('/login', jsonParser, (req, response, next) => {

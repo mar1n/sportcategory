@@ -21,7 +21,7 @@ function sessionStore() {
     return session({
         secret: DB_SESSION_SALT,
         cookie: { maxAge: 10 * 60 * 1000 },
-        resave: true,
+        resave: false,
         rolling: true,
         saveUninitialized: false,
         unset: 'destroy',

@@ -27,7 +27,7 @@ export default class AdminAdd extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault()
         let formData = new FormData(event.target)
-        fetch('rest/admin/addSport', {
+        fetch('/rest/admin/addSport', {
             method: 'post',
             credentials: 'include',
             body: formData

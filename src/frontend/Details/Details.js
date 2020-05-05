@@ -2,63 +2,57 @@ import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import Loading from '../Loading/Loading'
 import PlayButton from './PlayButton'
-
+import { sport } from '../REST/get'
 import './Details.css'
 
 export default class Details extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             sport: {}
         };
     }
 
-    async componentDidMount() {
-        let sportId = this.props.match.params.sportId
-        try {
-            let fetchData = await fetch(`/rest/sport/${sportId}`)
-            let sport = await fetchData.json()
+    componentDidMount() {
+        sport(this.props.match.params.sportId).then(sport => {
             this.setState({ sport })
-        } catch (error) {
-            console.log(error)
-        }
+            console.log(sport.imageBackground)
+        }).catch(() => {
+            this.setState({ sport: undefined})
+        })
     }
     render() {
+        const { sport } = this.state
         return (
             <>
                 {
-                    this.state.sport === undefined
-                        ? <Redirect to='/NotFound' />
-                        : this.state.sport.id
-                            ?
-                            <DetailsPage sports={this.state.sport} />
-                            : <Loading />
+                    sport ?
+                        sport.title ?
+                            <DetailsPage sport={sport} /> :
+                            <Loading /> :
+                        <Redirect to='/NotFound' />
                 }
             </>
         )
     }
 }
 
-const DetailsPage = ({ sports }) => {
+const DetailsPage = ({ sport }) => {
     return (
         <>
-            <div className='Details' style={{ background: (() => {
-                try {
-                    return `url(${require(`../../images/background/${sports.id}.jpg`)})`;
-                } catch {
-                    return `url(${require(`../../images/background/default.jpg`)})`;
-                }
-            })()}}>
-                <h1>{sports.title}</h1>
+            <div className='Details'
+                style={ {
+                    backgroundImage: sport.imageBackground ?
+                        `url("data:${sport.imageBackground.mimetype};base64,${sport.imageBackground.data}")` :
+                        `url(${require(`../../images/background/default.jpg`)})`
+                
+                }}>
+                <h1>{sport.title}</h1>
                 <div className='content'>
-                    <div>{sports.details}</div>
-                    {/* <img
-                        src={require(`../../images/${sports.id}.jpg`)}
-                        alt={sports.title}
-                    /> */}
+                    <div>{sport.details}</div>
                 </div>
                 <h4>Watch the Rules</h4>
-                <Link to={`${sports.id}/play`}>
+                <Link to={`${sport.id}/play`}>
                     <PlayButton />
                 </Link>
                 <Link to='/'>Back to Home Page</Link>

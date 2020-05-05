@@ -1,12 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function Sport(props) {
+function Sport({sport}) {
+  console.log(sport.imageCover)
   return (
-    <Link to={`/${props.id}`} className='sport'>
-      <img src={require(`../../images/list/${props.id}.jpg`)} alt={`${props.title} logo`} />
+    <Link to={`/${sport.id}`} className='sport'>
+      <img src={
+        sport.imageCover ?
+          `data:${sport.imageCover.mimetype};base64,${sport.imageCover.data}` :
+            require(`../../images/list/default.jpg`)
+      } alt={`${sport.title} logo`} />
       <div className='overlay'>
-        <h1>{props.title}</h1>
+        <h1>{sport.title}</h1>
       </div>
     </Link>
   )

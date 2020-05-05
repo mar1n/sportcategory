@@ -2,34 +2,36 @@ import React from 'react'
 import Sport from './Sport'
 import { Redirect } from 'react-router-dom'
 import Loading from '../Loading/Loading'
+import { sports } from '../REST/get'
 class SportCategory extends React.Component {
   constructor() {
     super()
     this.state = {
-      sport: {}
+      sports: []
     }
   }
 
-  async componentDidMount() {
-    try {
-      let fetchData = await fetch('/rest/sport')
-      let sport = await fetchData.json();
-      this.setState({ sport })
-    } catch (error) {
-      console.log(error)
-    }
+  componentDidMount() {
+    sports().then(sports => {
+      console.log(sports)
+      this.setState({ sports })
+    })
   }
 
   render() {
+    const { sports } = this.state;
     return (
       <>
         {
-          this.state.sport
-            ? this.state.sport[0]
+          sports
+            ? sports[0]
               ? <div className='container'>
                 {
-                  this.state.sport.map((sport) => (
-                    <Sport key={sport.id} id={sport.id} title={sport.title} logo={sport.logo} />
+                  sports.map((sport) => (
+                    <Sport
+                    key={sport.id}
+                    sport={sport}
+                    />
                   ))
                 }
               </div>

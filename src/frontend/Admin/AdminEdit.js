@@ -71,7 +71,7 @@ export default class AdminEdit extends React.Component {
                         <InputField name='synopsis'
                             required={false}
                             wantsImage={false}
-                            placeholder={"Please enter a synopsis " +
+                            placeholder={"Please enter a synopsis" +
                                 "for the tv show"}
                             handle={({ target }) =>
                                 this.handleInput(target.name, target.value)} />

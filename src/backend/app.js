@@ -1,5 +1,7 @@
 const express = require('express')
 const db = require('./db')
+const Binary = require('mongodb').Binary
+const fs = require('fs')
 const path = require('path')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
@@ -80,14 +82,13 @@ app.get('/logout', (req, res) => {
                     (error, result) => {
                         if (error) Promise.reject(error)
                         console.log("Session deleted from database: " + result)
+                        res.end(JSON.stringify({
+                            result: true,
+                            message: 'Successfully Logged out!'
+                        }))
                     }
                 )
             })
-            console.log("Session destroyed!");
-            res.end(JSON.stringify({
-                result: true,
-                message: 'Successfully Logged out!'
-            }))
         }
     })
 })
@@ -154,7 +155,7 @@ app.get('/rest/sport/', (req, res) => {
     })
 })
 
-app.post('rest/admin/addSport', upload.fields([{
+app.post('/rest/admin/addSport', upload.fields([{
     name: 'imageCover',
     maxCount: 1
 },
@@ -162,34 +163,71 @@ app.post('rest/admin/addSport', upload.fields([{
     name: 'imageBackground',
     maxCount: 1
 }
-]), (req, res, next) => {
+]), (req, res) => {
+    console.log(req)
     if (!req.session.isAdmin) {
-        res.send(401)
-        next()
+        res.sendStatus(401)
+        return
     }
-    console.log(Object.entries(req))
-    let formData = req.body
-    console.log("Form data: " + Object.entries(formData))
+
+    let { id, title, details, videoID } = req.body;
+    let imageCover;
+    let imageBackground;
+
+    if(id.length === 0 || blacklist.imageNames.includes(id)) {
+        res.sendStatus(401)
+        return
+    }
+    if(title.length === 0) {
+        res.sendStatus(401)
+        return
+    }
+    if(!details) {
+        details = ''
+    }
+    if(!videoID) {
+        videoID = 'V038aC2z6ck'
+    }
+
     if (req.files['imageCover']) {
-        console.log("Length of imageCover array is: " + req.files['imageCover'].length)
-        let imageCover = req.files['imageCover'][0]
-        console.log("ImageCover: " + imageCover +
-            "image fieldname: " + imageCover.fieldname +
-            "image originalname: " + imageCover.orginalname +
-            "image encoding: " + imageCover.endcoding +
-            "image mimtype: " + imageCover.mimetype +
-            "image size: " + imageCover.size +
-            "image destination: " + imageCover.destination +
-            "image filename: " + imageCover.filename +
-            "image path: " + imageCover.path +
-            "image buffer: " + imageCover.buffer
-        )
+        imageCover = req.files['imageCover'][0]
+        imageCover = {
+            mimetype: imageCover.mimetype,
+            data: Binary(fs.readFileSync(imageCover.path))
+        }
     }
-    let imageCoverPath = path.join(__dirname, "../images/list")
-    let imageBackgroundPath = path.join(__dirname, "../images/background")
-    console.log(imageCoverPath)
-    console.log(imageBackgroundPath)
-    res.end('good')
+
+    if(req.files['imageBackground']) {
+        imageBackground = req.files['imageBackground'][0]
+        imageBackground = {
+            mimetype: imageCover.mimetype,
+            data: Binary(fs.readFileSync(imageBackground.path))
+        }
+    }
+
+    connection.then(dbo => {
+        dbo.collection('sports').updateOne(
+            { id },
+            {
+                $set: {
+                    title,
+                    details,
+                    videoID,
+                    ...(imageCover && { imageCover }),
+                    ...(imageBackground && { imageBackground })
+                }
+            },
+            { upsert: true },
+            (error, _result) => {
+                if(error) Promise.reject(error)
+                console.log("Adding new sport to database, Result: " + _result)
+                res.send(JSON.stringify({
+                    result: true,
+                    message: 'Successfully Added Sport to Database!'
+                }))
+            }
+        )
+    })
 })
 
 

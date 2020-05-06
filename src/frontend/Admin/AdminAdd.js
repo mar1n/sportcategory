@@ -36,10 +36,10 @@ export default class AdminAdd extends React.Component {
         }).then(res => {
             res.result ?
                 this.showSuccessBanner() :
-                this.showFailBanner()
+                this.showFailBanner(res.message)
         }).catch(err => {
             console.log(`Error: Faild to submit Sport to database: ${err}`)
-            this.showFailBanner()
+            this.showFailBanner('Form not filled correctly')
         })
     }
 
@@ -50,9 +50,9 @@ export default class AdminAdd extends React.Component {
         })
     }
 
-    showFailBanner = () => {
+    showFailBanner = reason => {
         this.props.showNewBanner({
-            message: 'Faild to submit new Sport',
+            message: `Faild to submit new Sport: ${reason}`,
             isSuccess: false
         })
     }

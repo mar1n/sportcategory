@@ -62,3 +62,14 @@
 .AdminList .Edit, .AdminList .Delete {
     cursor: pointer;
 }
+
+.AdminList .SportList .tr {
+    background: red;
+    position: realative;
+}
+
+.AdminList .SportList .tr {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}

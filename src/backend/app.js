@@ -206,27 +206,34 @@ app.post('/rest/admin/addSport', upload.fields([{
     }
 
     connection.then(dbo => {
-        dbo.collection('sports').updateOne(
-            { id },
-            {
-                $set: {
-                    title,
-                    details,
-                    videoID,
-                    ...(imageCover && { imageCover }),
-                    ...(imageBackground && { imageBackground })
-                }
-            },
-            { upsert: true },
-            (error, _result) => {
-                if(error) Promise.reject(error)
-                console.log("Adding new sport to database, Result: " + _result)
-                res.send(JSON.stringify({
-                    result: true,
-                    message: 'Successfully Added Sport to Database!'
+        dbo.collection('sports').findOne({ id }, (error, result) => {
+            if(error) Promise.reject(error)
+            if(result) {
+                res.end(JSON.stringify({
+                    result: false,
+                    message: 'Sport already exists in DataBase!'
                 }))
+            } else {
+                dbo.collection('sports').insertOne(
+                    {
+                        id,
+                        title,
+                        details,
+                        videoID,
+                        ...(imageCover && { imageCover }),
+                        ...(imageBackground && { imageBackground })
+                    },
+                    (error, _result) => {
+                        if (error) Promise.reject(error)
+                        console.log("Adding new sport to database, Result: " + _result)
+                        res.end(JSON.stringify({
+                            result: true,
+                            message: 'Successfully Added Sport to Database!'
+                        }))
+                    }
+                )
             }
-        )
+        })
     })
 })
 

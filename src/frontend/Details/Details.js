@@ -14,7 +14,9 @@ export default class Details extends React.Component {
     }
 
     componentDidMount() {
-        sport(this.props.match.params.sportId).then(sport => {
+        sport(this.props.match.params.sportId, {
+            'KYK-Excludes': 'imageCover'
+        }).then(sport => {
             this.setState({ sport })
         }).catch(() => {
             this.setState({ sport: undefined})

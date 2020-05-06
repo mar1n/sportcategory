@@ -139,9 +139,16 @@ app.post('/login', jsonParser, (req, response, next) => {
 
 app.get('/rest/sport/:sport', (req, res) => {
     connection.then(dbo => {
-        dbo.collection('sports').findOne({ id: req.params.sport }, (error, results) => {
+        dbo.collection('sports').findOne({ id: req.params.sport }, (error, result) => {
             if (error) Promise.reject(error)
-            res.send(results)
+            if (req.header('KYK-Excludes')) {
+                res.send({
+                    ...result,
+                    ...getExcludes(req.header('KYK-Excludes'))
+                });
+            } else {
+                res.send(result);
+            }
         })
     })
 })
@@ -150,7 +157,16 @@ app.get('/rest/sport/', (req, res) => {
     connection.then(dbo => {
         dbo.collection('sports').find({}).toArray((error, results) => {
             if (error) Promise.reject(error)
-            res.send(results.map(sport => ({...sport, imageBackground: null })))
+            if (req.header('KYK-Excludes')) {
+                res.send(results.map(tvshow => {
+                    return { 
+                        ...tvshow, 
+                        ...getExcludes(req.header('KYK-Excludes'))
+                    };
+                }));
+            } else {
+                res.send(results);
+            }
         })
     })
 })
@@ -277,3 +293,13 @@ var server = app.listen(port, function () {
     var port = server.address().port
     console.log("Example app listening at http://%s:%s", host, port)
 })
+
+function getExcludes(excludeList) {
+    return excludeList.split(';').reduce(
+        (acc, keyToExclude) => {
+            acc[keyToExclude] = undefined;
+            return acc;
+        },
+        {}
+    );
+} 

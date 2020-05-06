@@ -1,5 +1,7 @@
-export async function sports() {
-    let res = await fetch(`/rest/sport`)
+export async function sports(headers = {}) {
+    let res = await fetch(`/rest/sport`, {
+        headers
+    })
     let sports = await res.json()
     return sports.map(sport => {
         console.log(sport)
@@ -7,8 +9,10 @@ export async function sports() {
     })
 }
 
-export async function sport(sportID) {
-    let res = await fetch(`/rest/sport/${sportID}`)
+export async function sport(sportID, headers = {}) {
+    let res = await fetch(`/rest/sport/${sportID}`, {
+        headers
+    })
     let sport = await res.json()
     return stringifySportImages(sport)
 }

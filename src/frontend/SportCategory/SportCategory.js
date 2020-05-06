@@ -12,7 +12,7 @@ class SportCategory extends React.Component {
   }
 
   componentDidMount() {
-    sports().then(sports => {
+    sports({'KYK-Excludes': 'imageBackground'}).then(sports => {
       console.log(sports)
       this.setState({ sports })
     })

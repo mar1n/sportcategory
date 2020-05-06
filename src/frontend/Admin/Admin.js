@@ -5,7 +5,7 @@ import AdminAdd from './AdminAdd'
 import AdminEdit from './AdminEdit'
 import './Admin.css'
 
-export default function Admin({ match, loginInfo }) {
+export default function Admin({ match, loginInfo, showNewBanner }) {
     return loginInfo.isAdmin ? (
         <div className='Admin'>
             <h1 className='Title'>Welcome back, {loginInfo.username}.</h1>
@@ -15,7 +15,9 @@ export default function Admin({ match, loginInfo }) {
                     component={AdminList} />
                 <Route
                     exact path={`${match.path}/add`}
-                    component={AdminAdd} />
+                    render={() => 
+                        <AdminAdd
+                            showNewBanner={showNewBanner} />}/>
                 <Route
                     exact path={`${match.path}/edit/:sport`}
                     component={AdminEdit} />

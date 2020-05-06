@@ -16,7 +16,6 @@ export default class Details extends React.Component {
     componentDidMount() {
         sport(this.props.match.params.sportId).then(sport => {
             this.setState({ sport })
-            console.log(sport.imageBackground)
         }).catch(() => {
             this.setState({ sport: undefined})
         })

@@ -12,6 +12,10 @@
     animation-fill-mode: forwards;
 }
 
+.Banner .Animating {
+    animation: Banner ease 3s;
+}
+
 .Banner .Success {
     background: rbg(0, 151, 20, 0.6)
 }

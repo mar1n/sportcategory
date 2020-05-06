@@ -150,7 +150,7 @@ app.get('/rest/sport/', (req, res) => {
     connection.then(dbo => {
         dbo.collection('sports').find({}).toArray((error, results) => {
             if (error) Promise.reject(error)
-            res.send(results)
+            res.send(results.map(sport => ({...sport, imageBackground: null })))
         })
     })
 })

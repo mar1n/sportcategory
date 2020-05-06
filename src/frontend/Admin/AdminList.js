@@ -86,20 +86,18 @@ const Sports = ({ sportsToDelete, deleteSport, sports }) => {
           <th>Delete</th>
         </tr>
       </thead>
-      <tbody>
-        {sports.map((sport) => {
-          return sportsToDelete === sport.id ? (
-            <tbody id="ToDelete">To Delete{sportRow(deleteSport, sport)}</tbody>
-          ) : (
-            sportRow(deleteSport, sport)
-          );
-        })}
-      </tbody>
+      {sports.map((sport) => {
+        return sportsToDelete === sport.id ? (
+          <tbody id="ToDelete">{sportRow(deleteSport, sport, true)}</tbody>
+        ) : (
+          sportRow(deleteSport, sport)
+        );
+      })}
     </table>
   );
 };
 
-const sportRow = (deleteSport, sport) => {
+const sportRow = (deleteSport, sport, confirmDelete) => {
   return (
     <tr key={sport.id}>
       {Object.entries(sport).reduce((acc, kv) => {
@@ -108,9 +106,31 @@ const sportRow = (deleteSport, sport) => {
         }
 
         return acc.concat(<td key={kv[0]}>{kv[1]}</td>);
-      }, [])}
+      }, [])
+      }
       <td>
-        <img
+        <img className='Edit icon'
+          src={require(`../../images/editicon.svg`)}
+          alt={'Edit icon'} />
+      </td>
+        {
+          confirmDelete ?
+            <td id='ConfirmDelete'>
+              <div className='DeleteItem' id='title'>Please confirm:</div>
+              <button className='DeleteItem' id='Cancel'>&#215; Cancel</button>
+              <button className='DeleteItem' id='Delete'>&#10004; Delete</button>
+            </td> :
+            <td>
+              <img onClick={() => deleteSport(sport.id)}
+                className='Delte icon'
+                src={require(`../../images/deleteicon.svg`)}
+                alt={'Delete icon'} />
+            </td>
+        }
+
+
+
+        {/* <img
           className="Edit icon"
           src={require(`../../images/editicon.svg`)}
           alt={"Edit icon"}
@@ -123,7 +143,7 @@ const sportRow = (deleteSport, sport) => {
           src={require(`../../images/deleteicon.svg`)}
           alt={"Delete icon"}
         />
-      </td>
+      </td> */}
     </tr>
   );
 };

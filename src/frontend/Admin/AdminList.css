@@ -63,13 +63,60 @@
     cursor: pointer;
 }
 
-.AdminList .SportList .tr {
+.AdminList .SportList #ToDelete {
     background: red;
-    position: realative;
 }
 
-.AdminList .SportList .tr {
-    position: absolute;
-    top: 0px;
-    left: 0px;
+.AdminList .SportList #ToDelete tr {
+    height: 100%;
+}
+
+.AdminList .SportList #ToDelete #ConfirmDelete {
+    background: white;
+    border: 1px solid #000;
+}
+
+.AdminList .SportList #ToDelete #ConfirmDelte .DeleteItem {
+    font-weight: 500;
+}
+
+.AdminList .SportList #ToDelete #ConfrimDelete #title {
+    color: black;
+    padding: 0.25em;
+    margin-bottom: 0.25em;
+    font-weight: 550;
+}
+
+.AdminList .SportList #ToDelete #ConfirmDelete button {
+    border: 1px solid transparent;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.AdminList .SportList #ToDelete #ConfirmDelete button:active {
+    transform: translate(1px)
+}
+
+.AdminList .SportList #ToDelete #ConfirmDelete button#Delete {
+    color: white;
+    background:red;
+    margin-bottom: 0.5.em;
+    border-color: rgb(212, 0, 0);
+}
+
+.AdminList .SportList #ToDelete #ConfirmDelte buton#Delete:hover {
+    background: rgb(232, 0, 0);
+    border-color: rgb(188, 0, 0);
+}
+
+.AdminList .SportList #ToDelete #ConfirmDelete button#Cancel {
+    background: white;
+    margin-top: 0.25em;
+    border-color: rgb(212, 212, 212);
+}
+
+.AdminList .SportList #ToDelete #ConfirmDelete button#Cancel:hover {
+    background: rgb(238, 238, 238);
+    border-color: rgb(192, 192, 192);
 }

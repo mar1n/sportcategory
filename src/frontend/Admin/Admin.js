@@ -12,7 +12,10 @@ export default function Admin({ match, loginInfo, showNewBanner }) {
             <Switch>
                 <Route
                     exact path={`${match.path}/list`}
-                    component={AdminList} />
+                    render={() => 
+                        <AdminList
+                            showNewBanner={showNewBanner} />
+                    } />
                 <Route
                     exact path={`${match.path}/add`}
                     render={() => 

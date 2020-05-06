@@ -137,9 +137,9 @@ app.post('/login', jsonParser, (req, response, next) => {
 
 
 
-app.get('/rest/sport/:id', (req, res) => {
+app.get('/rest/sport/:sport', (req, res) => {
     connection.then(dbo => {
-        dbo.collection('sports').findOne({ id: req.params.id }, (error, results) => {
+        dbo.collection('sports').findOne({ id: req.params.sport }, (error, results) => {
             if (error) Promise.reject(error)
             res.send(results)
         })
@@ -234,6 +234,33 @@ app.post('/rest/admin/addSport', upload.fields([{
                 )
             }
         })
+    })
+})
+
+app.delete('/rest/admin/delete/:sport', (req, res) => {
+    const id = req.params.sport
+    console.log(`Delete Request received, Sport ID: ${id}`)
+    connection.then(dbo => {
+        dbo.collection('sports').deleteOne({ id }, 
+            (error, response) => {
+                if(error) Promise.reject(error)
+                if(response.result.ok) {
+                    console.log(`Deleted Sport from database, result: ${response}`)
+                    res.end(JSON.stringify({
+                        result: true,
+                        message: `Successfully Deleted Sport ${id}!`
+                    }))
+                } else {
+                    console.log(
+                        `Faild to Delete Sport from database, result: ${response}`
+                    )
+                    res.end(JSON.stringify({
+                        result: false,
+                        message: `Databse could not delete ${id}`
+                    }))
+                }
+            }
+        )
     })
 })
 

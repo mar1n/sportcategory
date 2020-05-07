@@ -174,15 +174,16 @@ const sportRow = (
   return (
     <tr key={sport.id}>
       {Object.entries(sport).map(kv => {
+                let className = `Cell${kv[0].charAt(0).toUpperCase() + kv[0].slice(1)}`
                 if (kv[0] === 'thumbCover' || kv[0] === 'thumbBackground') {
                     const {mimetype, data} = kv[1];
-                    return <td key={kv[0]}>
+                    return <td className={className} key={kv[0]}>
                         <img src={
                             `data:${mimetype};base64,${data}`}
                             alt={`${sport.id} ${kv[0]}`} />
                     </td>
                 }
-                return <td key={kv[0]}>{kv[1]}</td>;
+                return <td className={className} key={kv[0]}>{kv[1]}</td>;
               })
       }
       <td>
@@ -191,23 +192,23 @@ const sportRow = (
           alt={'Edit icon'} />
       </td>
         {
-           confirmDelete ?
-           <td id='ConfirmDelete'>
-               <div
-                   className='DeleteItem'
-                   id='title'
-               >Please confirm:</div>
-               <button
-                   className='DeleteItem'
-                   id='Cancel'
-                   onClick={cancelDelete}
-               >&#215; Cancel</button>
-               <button
-                   className='DeleteItem'
-                   id='Delete'
-                   onClick={deleteSport}
-               >&#10004;  Delete</button>
-           </td> :
+          confirmDelete ?
+          <td id='ConfirmDelete'>
+              <div
+                  className='DeleteItem'
+                  id='title'
+              >Please confirm:</div>
+              <button
+                  className='DeleteItem'
+                  id='Cancel'
+                  onClick={cancelDelete}
+              >&#215; Cancel</button>
+              <button
+                  className='DeleteItem'
+                  id='Delete'
+                  onClick={deleteSport}
+              >&#10004;  Delete</button>
+          </td> :
             <td>
               <img onClick={() => prepareDelete(sport.id)}
                 className='Delte icon'

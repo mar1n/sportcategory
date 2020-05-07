@@ -40,6 +40,14 @@
 
 .AdminList .SportList {
     border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.AdminList .SportList th, .AdminList .SportList td {
+    word-wrap: break-all;
+    width: 10%;
 }
 
 .AdminList .SportList th {
@@ -59,6 +67,10 @@
     border: 1px solid white;
 }
 
+.SportList .SportList .CellDetails {
+    overflow: scroll;
+}
+
 .AdminList .Edit, .AdminList .Delete {
     cursor: pointer;
 }
@@ -76,11 +88,11 @@
     border: 1px solid #000;
 }
 
-.AdminList .SportList #ToDelete #ConfirmDelte .DeleteItem {
+.AdminList .SportList #ToDelete #ConfirmDelete .DeleteItem {
     font-weight: 500;
 }
 
-.AdminList .SportList #ToDelete #ConfrimDelete #title {
+.AdminList .SportList #ToDelete #ConfirmDelete #title {
     color: black;
     padding: 0.25em;
     margin-bottom: 0.25em;
@@ -105,7 +117,7 @@
     border-color: rgb(212, 0, 0);
 }
 
-.AdminList .SportList #ToDelete #ConfirmDelte buton#Delete:hover {
+.AdminList .SportList #ToDelete #ConfirmDelete button#Delete:hover {
     background: rgb(232, 0, 0);
     border-color: rgb(188, 0, 0);
 }

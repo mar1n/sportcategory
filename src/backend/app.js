@@ -1,5 +1,6 @@
 const express = require('express')
 const db = require('./db')
+const sharp = require('sharp')
 const Binary = require('mongodb').Binary
 const fs = require('fs')
 const path = require('path')
@@ -188,7 +189,9 @@ app.post('/rest/admin/addSport', upload.fields([{
 
     let { id, title, details, videoID } = req.body;
     let imageCover;
+    let thumbCover;
     let imageBackground;
+    let thumbBackground;
 
     if(id.length === 0 || blacklist.imageNames.includes(id)) {
         res.sendStatus(401)
@@ -207,6 +210,7 @@ app.post('/rest/admin/addSport', upload.fields([{
 
     if (req.files['imageCover']) {
         imageCover = req.files['imageCover'][0]
+        thumbCover = sharp(imageCover.path).resize(10, 10).toBuffer()
         imageCover = {
             mimetype: imageCover.mimetype,
             data: Binary(fs.readFileSync(imageCover.path))
@@ -215,6 +219,7 @@ app.post('/rest/admin/addSport', upload.fields([{
 
     if(req.files['imageBackground']) {
         imageBackground = req.files['imageBackground'][0]
+        thumbBackground = sharp(imageBackground.path).resize(10, 10).toBuffer()
         imageBackground = {
             mimetype: imageCover.mimetype,
             data: Binary(fs.readFileSync(imageBackground.path))
@@ -230,22 +235,41 @@ app.post('/rest/admin/addSport', upload.fields([{
                     message: 'Sport already exists in DataBase!'
                 }))
             } else {
-                dbo.collection('sports').insertOne(
+                Promise.all([thumbCover, thumbBackground]).then(([tcdata, tbdata]) =>
                     {
-                        id,
-                        title,
-                        details,
-                        videoID,
-                        ...(imageCover && { imageCover }),
-                        ...(imageBackground && { imageBackground })
-                    },
-                    (error, _result) => {
-                        if (error) Promise.reject(error)
-                        console.log("Adding new sport to database, Result: " + _result)
-                        res.end(JSON.stringify({
-                            result: true,
-                            message: 'Successfully Added Sport to Database!'
-                        }))
+                        dbo.collection('sports').insertOne(
+                            {
+                                id,
+                                title,
+                                details,
+                                videoID,
+                                ...(imageCover && { imageCover }),
+                                ...(imageBackground && { imageBackground }),
+                                ...(tcdata && {
+                                    thumbCover:
+                                    {
+                                        mimetype: imageCover.mimetype,
+                                        data: tcdata
+                                    }
+                                }),
+                                ...(tbdata && { thumbBackground: 
+                                    {
+                                        mimetype: imageBackground.mimetype,
+                                        data: tbdata
+                                    }
+                                }),
+                            },
+                            (error, _result) => {
+                                if(error) Promise.reject(error)
+                                console.log("Adding new sport to database, " + 
+                                "Result: " + _result);
+                                res.end(JSON.stringify({
+                                    result: true,
+                                    message: 'Successfully Added Sport ' +
+                                    'to Database!'
+                                }))
+                            }
+                        )
                     }
                 )
             }

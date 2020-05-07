@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import Loading from "../Loading/Loading";
 import "./AdminList.css";
-
+import { sports as getSport } from '../REST/get'
 export default class AdminList extends React.Component {
   constructor(props) {
     super(props);
@@ -13,13 +13,11 @@ export default class AdminList extends React.Component {
   }
 
   async componentDidMount() {
-    try {
-      let fetchData = await fetch("/rest/sport");
-      let sports = await fetchData.json();
+    getSport({
+      'KYK-Excludes': 'imageCover;imageBackground'
+  }).then(sports => {
       this.setState({ sports });
-    } catch (error) {
-      console.log(error);
-    }
+  });
   }
 
   prepareDelete = (sportID) => {
@@ -135,11 +133,12 @@ const Sports = ({
       <tbody>
         <tr>
           {Object.keys(sports[0]).reduce((acc, k) => {
-            if (k === "imageCover" || k === "imageBackground") {
-              return acc;
-            }
-
-            return acc.concat(<th key={k}>{k}</th>);
+            const key = k === 'thumbCover' ?
+            'imageCover' :
+            k === 'imageBackground' ?
+                'thumbBackground' :
+                k;
+        return acc.concat(<th key={key}>{key}</th>)
           }, [])}
           <th>Edit</th>
           <th>Delete</th>
@@ -174,13 +173,17 @@ const sportRow = (
   deleteSport ) => {
   return (
     <tr key={sport.id}>
-      {Object.entries(sport).reduce((acc, kv) => {
-        if (kv[0] === "imageCover" || kv[0] === "imageBackground") {
-          return acc;
-        }
-
-        return acc.concat(<td key={kv[0]}>{kv[1]}</td>);
-      }, [])
+      {Object.entries(sport).map(kv => {
+                if (kv[0] === 'thumbCover' || kv[0] === 'thumbBackground') {
+                    const {mimetype, data} = kv[1];
+                    return <td key={kv[0]}>
+                        <img src={
+                            `data:${mimetype};base64,${data}`}
+                            alt={`${sport.id} ${kv[0]}`} />
+                    </td>
+                }
+                return <td key={kv[0]}>{kv[1]}</td>;
+              })
       }
       <td>
         <img className='Edit icon'
@@ -188,23 +191,23 @@ const sportRow = (
           alt={'Edit icon'} />
       </td>
         {
-          confirmDelete ?
-            <td id='ConfirmDelete'>
-              <div
-                className='DeleteItem'
-                id='title'
-                >Please confirm:</div>
-                <button
-                  className='DeleteItem'
-                  id='Cancel'
-                  onClick={cancelDelete}
-                  >&#215; Cancel</button>
-                  <button
-                    classsName='DeleteItem'
-                    id='Delete'
-                    onClick={deleteSport}
-                    >&#10004; Delete</button>
-            </td> :
+           confirmDelete ?
+           <td id='ConfirmDelete'>
+               <div
+                   className='DeleteItem'
+                   id='title'
+               >Please confirm:</div>
+               <button
+                   className='DeleteItem'
+                   id='Cancel'
+                   onClick={cancelDelete}
+               >&#215; Cancel</button>
+               <button
+                   className='DeleteItem'
+                   id='Delete'
+                   onClick={deleteSport}
+               >&#10004;  Delete</button>
+           </td> :
             <td>
               <img onClick={() => prepareDelete(sport.id)}
                 className='Delte icon'

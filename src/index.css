@@ -5,7 +5,5 @@
 }
 
 html, body, .App, #root, .showTitles {
-  height: 100vh;
-  width: 100vw;
-  overflow: auto;
+  height: 100%;
 }

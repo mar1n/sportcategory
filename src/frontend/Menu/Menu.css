@@ -82,6 +82,15 @@
     color: chartreuse;
 }
 
+.Menu.is-visible .panel .dimmer {
+    background: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+}
+
 @keyframes menu-open {
     0% {
         height: 100%;
@@ -95,3 +104,4 @@
         right: 0px;
     }
 }
+

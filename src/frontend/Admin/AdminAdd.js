@@ -45,7 +45,7 @@ export default class AdminAdd extends React.Component {
 
     showSuccessBanner = () => {
         this.props.showNewBanner({
-            message: 'Successfully submitted new TVShow!',
+            message: 'Successfully submitted new Sport Category!',
             isSuccess: true
         })
     }
@@ -86,7 +86,7 @@ export default class AdminAdd extends React.Component {
                             <InputField name='details'
                                 required={false}
                                 wantsImage={false}
-                                placeholder='Please enter a details for the tv show'
+                                placeholder='Please enter a details for the sport'
                                 handle={({ target }) =>
                                     this.handleInput(target.name, target.value)
                                 }
@@ -94,7 +94,7 @@ export default class AdminAdd extends React.Component {
                             <InputField name='videoID'
                                 required={false}
                                 wantsImage={false}
-                                placeholder='Please enter the video ID for the youtube trailer'
+                                placeholder='Please enter the video ID for the youtube rules'
                                 handle={({ target }) =>
                                     this.handleInput(target.name, target.value)
                                 }
@@ -110,7 +110,7 @@ export default class AdminAdd extends React.Component {
                             <InputField name='imageBackground'
                                 required={false}
                                 wantsImage={true}
-                                placeholder='Please enter the video ID for the youtube trailer'
+                                placeholder='Please enter the video ID for the youtube rules'
                                 handle={({ target }) =>
                                     this.handleInput(target.name, target.value)
                                 }

@@ -1,7 +1,5 @@
 .parallax-container {
-
   height: 100%;
-
 }
 
 .Details {
@@ -13,8 +11,22 @@
 }
 
 .Details .content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
 }
 
+.Details .description {
+  min-width: 320px;
+  max-width: 75%;
+  background: rgba(24,26,30,.23);
+  padding: 5px 25px 25px;
+  color: #fff;
+  justify-self: center;
+  margin: 25px;
+}
+.Details h4 {
+  color: #fff;
+}
 
 @media(min-width: 450px) {
   html, body, .App, #root, .showTitles {

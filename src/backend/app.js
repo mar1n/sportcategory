@@ -16,7 +16,7 @@ const upload = multer({
         parts: 12
     }
 })
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const SALT_ROUNDS = 12
 const forge = require('node-forge')
 const app = express()
